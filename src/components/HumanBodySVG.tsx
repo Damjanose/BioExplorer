@@ -324,18 +324,14 @@ export const HumanBodySVG: React.FC<HumanBodySVGProps> = ({
             </div>
           </div>
           
-          {/* Info Display */}
-          <div className={`organ-info-display ${currentOrgan ? 'visible' : ''}`}>
-            {currentOrgan && (
-              <>
-                <span className="info-icon">{currentOrgan.icon}</span>
-                <div className="info-content">
-                  <h4>{currentOrgan.name}</h4>
-                  <p>{currentOrgan.description}</p>
-                </div>
-                <span className="info-arrow">→</span>
-              </>
-            )}
+          {/* Info Display - Always visible */}
+          <div className="organ-info-display visible">
+            <span className="info-icon">{currentOrgan ? currentOrgan.icon : '🔍'}</span>
+            <div className="info-content">
+              <h4>{currentOrgan ? currentOrgan.name : 'Select an Organ'}</h4>
+              <p>{currentOrgan ? currentOrgan.description : 'Hover or click on any organ to learn more'}</p>
+            </div>
+            <span className="info-arrow">→</span>
           </div>
         </div>
 
