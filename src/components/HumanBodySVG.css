@@ -1,150 +1,723 @@
-.human-body-container {
+/* ========================================
+   HUMAN ANATOMY EXPLORER - Award Winning Design
+   ======================================== */
+
+.body-explorer {
   display: flex;
   flex-direction: column;
   align-items: center;
   padding: 20px;
+  gap: 32px;
+  max-width: 1200px;
+  margin: 0 auto;
 }
 
-.human-body-svg {
-  max-width: 400px;
+/* ========== HEADER ========== */
+.explorer-header {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 40px;
   width: 100%;
-  height: auto;
+  padding: 20px 0;
 }
 
-.body-part {
-  cursor: pointer;
-  fill: #ff9999;
-  stroke: #cc0000;
-  stroke-width: 2;
-  transition: all 0.3s ease;
+.header-content {
+  text-align: center;
+}
+
+.header-badge {
+  display: inline-block;
+  background: linear-gradient(135deg, var(--primary-color), var(--accent-color));
+  color: #0a0f1a;
+  font-size: 0.7rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  padding: 6px 16px;
+  border-radius: 20px;
+  margin-bottom: 12px;
+}
+
+.explorer-title {
+  font-size: clamp(1.5rem, 4vw, 2.2rem);
+  margin: 0 0 8px 0;
+  background: linear-gradient(135deg, #fff 0%, var(--primary-color) 50%, var(--accent-color) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.explorer-subtitle {
+  color: var(--text-muted);
+  font-size: 0.95rem;
+  margin: 0;
+}
+
+/* DNA Strand Decoration */
+.header-decoration {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.dna-strand {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.dna-node {
+  width: 8px;
+  height: 8px;
+  background: var(--primary-color);
+  border-radius: 50%;
+  animation: dnaPulse 2s ease-in-out infinite;
+  box-shadow: 0 0 10px var(--primary-glow);
+}
+
+.header-decoration.right .dna-node {
+  background: var(--accent-color);
+  box-shadow: 0 0 10px var(--accent-glow);
+}
+
+@keyframes dnaPulse {
+  0%, 100% { opacity: 0.3; transform: scale(0.8); }
+  50% { opacity: 1; transform: scale(1.2); }
+}
+
+/* ========== MAIN BODY DISPLAY ========== */
+.body-display {
+  display: flex;
+  align-items: stretch;
+  justify-content: center;
+  gap: 24px;
+  width: 100%;
+}
+
+/* Side Info Panels */
+.info-panel {
+  flex: 0 0 140px;
+  background: var(--glass-bg);
+  backdrop-filter: blur(20px);
+  border: 1px solid var(--glass-border);
+  border-radius: 20px;
+  padding: 20px 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.panel-header {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  padding-bottom: 12px;
+  border-bottom: 1px solid var(--glass-border);
+}
+
+.panel-icon {
+  font-size: 1.1rem;
+}
+
+.system-list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.system-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 0.8rem;
+  color: var(--text-secondary);
+  animation: fadeSlideIn 0.5s ease-out both;
+}
+
+@keyframes fadeSlideIn {
+  from { opacity: 0; transform: translateX(-10px); }
+  to { opacity: 1; transform: translateX(0); }
+}
+
+.system-dot {
+  width: 8px;
+  height: 8px;
+  background: var(--primary-color);
+  border-radius: 50%;
+  box-shadow: 0 0 8px var(--primary-glow);
+}
+
+.fact-list {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.fact-item {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.fact-number {
+  font-size: 1.4rem;
+  font-weight: 800;
+  background: linear-gradient(135deg, var(--primary-color), var(--accent-color));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.fact-label {
+  font-size: 0.7rem;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+/* ========== CENTRAL BODY FRAME ========== */
+.body-center {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+}
+
+.body-frame {
+  position: relative;
+  width: 320px;
+  height: 480px;
+  background: linear-gradient(180deg, 
+    rgba(0, 20, 40, 0.95) 0%,
+    rgba(5, 25, 45, 0.9) 50%,
+    rgba(0, 15, 35, 0.95) 100%);
+  border-radius: 30px;
+  border: 2px solid rgba(0, 212, 170, 0.3);
+  overflow: hidden;
+  box-shadow: 
+    0 40px 80px rgba(0, 0, 0, 0.5),
+    0 0 60px rgba(0, 212, 170, 0.15),
+    inset 0 0 80px rgba(0, 0, 0, 0.5),
+    inset 0 1px 0 rgba(255, 255, 255, 0.1);
+}
+
+/* Scanning Effect */
+.scan-line {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: linear-gradient(90deg, 
+    transparent, 
+    var(--primary-color), 
+    transparent);
+  box-shadow: 0 0 20px var(--primary-color), 0 0 40px var(--primary-color);
+  animation: scanDown 4s linear infinite;
+  z-index: 10;
   opacity: 0.8;
 }
 
-.body-part:hover {
-  fill: #ff6666;
-  stroke: #990000;
-  stroke-width: 3;
-  opacity: 1;
-  filter: drop-shadow(0 0 8px rgba(255, 0, 0, 0.5));
+@keyframes scanDown {
+  0% { top: 0; opacity: 0; }
+  10% { opacity: 0.8; }
+  90% { opacity: 0.8; }
+  100% { top: 100%; opacity: 0; }
 }
 
-.body-part.selected {
-  fill: #ff3333;
-  stroke: #660000;
-  stroke-width: 3;
-  opacity: 1;
-}
-
-/* Specific organ colors */
-#brain,
-.body-part[id="brain"] {
-  fill: #ffb6c1;
-  stroke: #ff69b4;
-}
-
-#brain:hover {
-  fill: #ff69b4;
-}
-
-#heart,
-.body-part[id="heart"] {
-  fill: #ff4444;
-  stroke: #cc0000;
-}
-
-#heart:hover {
-  fill: #ff0000;
-}
-
-#lungs-left,
-#lungs-right,
-.body-part[id^="lungs"] {
-  fill: #87ceeb;
-  stroke: #4682b4;
-}
-
-#lungs-left:hover,
-#lungs-right:hover {
-  fill: #4682b4;
-}
-
-#liver {
-  fill: #8b4513;
-  stroke: #654321;
-}
-
-#liver:hover {
-  fill: #a0522d;
-}
-
-#stomach {
-  fill: #ffa07a;
-  stroke: #ff7f50;
-}
-
-#stomach:hover {
-  fill: #ff7f50;
-}
-
-#kidney-left,
-#kidney-right {
-  fill: #b8860b;
-  stroke: #8b6914;
-}
-
-#kidney-left:hover,
-#kidney-right:hover {
-  fill: #daa520;
-}
-
-#intestines {
-  fill: #deb887;
-  stroke: #d2691e;
-}
-
-#intestines:hover {
-  fill: #d2691e;
-}
-
-#skeleton {
-  fill: #f5f5dc;
-  stroke: #d3d3d3;
-}
-
-#skeleton:hover {
-  fill: #fffacd;
-}
-
-.organ-label {
-  font-size: 10px;
-  font-weight: bold;
-  fill: #333;
-  text-anchor: middle;
+/* Grid Overlay */
+.grid-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-image: 
+    linear-gradient(rgba(0, 212, 170, 0.03) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(0, 212, 170, 0.03) 1px, transparent 1px);
+  background-size: 20px 20px;
   pointer-events: none;
-  -webkit-user-select: none;
-  user-select: none;
 }
 
-.organ-label.small {
-  font-size: 8px;
+/* Corner Brackets */
+.corner-bracket {
+  position: absolute;
+  width: 30px;
+  height: 30px;
+  border: 2px solid var(--primary-color);
+  z-index: 5;
 }
 
-.organ-label.tiny {
-  font-size: 6px;
-  font-weight: normal;
+.corner-bracket.top-left {
+  top: 15px;
+  left: 15px;
+  border-right: none;
+  border-bottom: none;
 }
 
-.body-legend {
-  margin-top: 20px;
-  padding: 15px 25px;
-  background: linear-gradient(135deg, #e8f5e9 0%, #c8e6c9 100%);
-  border-radius: 25px;
-  font-size: 16px;
-  color: #2e7d32;
-  font-weight: 500;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+.corner-bracket.top-right {
+  top: 15px;
+  right: 15px;
+  border-left: none;
+  border-bottom: none;
 }
 
-.body-legend p {
+.corner-bracket.bottom-left {
+  bottom: 15px;
+  left: 15px;
+  border-right: none;
+  border-top: none;
+}
+
+.corner-bracket.bottom-right {
+  bottom: 15px;
+  right: 15px;
+  border-left: none;
+  border-top: none;
+}
+
+/* Anatomy SVG */
+.anatomy-svg {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 75%;
+  height: 90%;
+}
+
+.body-anatomy {
+  animation: bodyFloat 6s ease-in-out infinite;
+}
+
+@keyframes bodyFloat {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-3px); }
+}
+
+.body-segment {
+  transition: all 0.3s ease;
+}
+
+.internal-organs {
+  animation: organsGlow 3s ease-in-out infinite;
+}
+
+@keyframes organsGlow {
+  0%, 100% { opacity: 0.4; }
+  50% { opacity: 0.7; }
+}
+
+/* ========== ORGAN MARKERS ========== */
+.organ-markers {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+}
+
+.organ-marker {
+  position: absolute;
+  transform: translate(-50%, -50%);
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  pointer-events: all;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.organ-marker:hover,
+.organ-marker.hovered {
+  transform: translate(-50%, -50%) scale(1.15);
+  z-index: 20;
+}
+
+.organ-marker.active {
+  animation: markerPop 0.3s ease-out;
+}
+
+@keyframes markerPop {
+  0% { transform: translate(-50%, -50%) scale(1); }
+  50% { transform: translate(-50%, -50%) scale(1.3); }
+  100% { transform: translate(-50%, -50%) scale(1.15); }
+}
+
+/* Marker Rings */
+.marker-ring {
+  position: absolute;
+  border-radius: 50%;
+  border: 2px solid var(--marker-color);
+  opacity: 0;
+  animation: ringExpand 3s ease-out infinite;
+}
+
+.ring-1 {
+  width: 100%;
+  height: 100%;
+  animation-delay: 0s;
+}
+
+.ring-2 {
+  width: 100%;
+  height: 100%;
+  animation-delay: 1s;
+}
+
+.ring-3 {
+  width: 100%;
+  height: 100%;
+  animation-delay: 2s;
+}
+
+@keyframes ringExpand {
+  0% { transform: scale(0.5); opacity: 0.8; }
+  100% { transform: scale(2.5); opacity: 0; }
+}
+
+.marker-core {
+  position: absolute;
+  width: 36px;
+  height: 36px;
+  background: radial-gradient(circle, 
+    rgba(255, 255, 255, 0.2) 0%, 
+    rgba(0, 0, 0, 0.3) 100%);
+  border: 2px solid var(--marker-color);
+  border-radius: 50%;
+  box-shadow: 
+    0 0 15px var(--marker-color),
+    inset 0 0 10px rgba(0, 0, 0, 0.5);
+  backdrop-filter: blur(4px);
+}
+
+.organ-marker:hover .marker-core,
+.organ-marker.hovered .marker-core {
+  background: var(--marker-color);
+  box-shadow: 
+    0 0 25px var(--marker-color),
+    0 0 50px var(--marker-color);
+}
+
+.marker-icon {
+  position: relative;
+  z-index: 2;
+  font-size: 1.3rem;
+  filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.5));
+  transition: transform 0.3s ease;
+}
+
+.organ-marker:hover .marker-icon {
+  transform: scale(1.2);
+}
+
+/* ========== ORGAN INFO DISPLAY ========== */
+.organ-info-display {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 16px 24px;
+  background: var(--glass-bg);
+  backdrop-filter: blur(20px);
+  border: 1px solid var(--glass-border);
+  border-radius: 20px;
+  min-width: 280px;
+  opacity: 0;
+  transform: translateY(10px);
+  transition: all 0.3s ease;
+}
+
+.organ-info-display.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.info-icon {
+  font-size: 2rem;
+  filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.3));
+}
+
+.info-content h4 {
+  margin: 0 0 4px 0;
+  font-size: 1.1rem;
+  color: var(--text-primary);
+}
+
+.info-content p {
   margin: 0;
+  font-size: 0.85rem;
+  color: var(--text-muted);
+}
+
+.info-arrow {
+  font-size: 1.5rem;
+  color: var(--primary-color);
+  margin-left: auto;
+  animation: arrowBounce 1.5s ease-in-out infinite;
+}
+
+@keyframes arrowBounce {
+  0%, 100% { transform: translateX(0); }
+  50% { transform: translateX(5px); }
+}
+
+/* ========== ORGAN CARDS SECTION ========== */
+.organ-cards-section {
+  width: 100%;
+  max-width: 700px;
+}
+
+.cards-header {
+  text-align: center;
+  margin-bottom: 24px;
+}
+
+.cards-header h3 {
+  font-size: 1.2rem;
+  color: var(--text-primary);
+  margin: 0 0 12px 0;
+}
+
+.cards-decoration {
+  width: 60px;
+  height: 3px;
+  background: linear-gradient(90deg, var(--primary-color), var(--accent-color));
+  margin: 0 auto;
+  border-radius: 2px;
+}
+
+.organ-cards-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 12px;
+}
+
+.organ-explore-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  padding: 20px 12px;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid var(--glass-border);
+  border-radius: 20px;
+  cursor: pointer;
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  position: relative;
+  overflow: hidden;
+  animation: cardFadeIn 0.5s ease-out both;
+  animation-delay: var(--card-delay);
+}
+
+@keyframes cardFadeIn {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.card-glow {
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: radial-gradient(circle at center, var(--card-color) 0%, transparent 70%);
+  opacity: 0;
+  transition: opacity 0.4s ease;
+  pointer-events: none;
+}
+
+.organ-explore-card:hover .card-glow {
+  opacity: 0.15;
+}
+
+.organ-explore-card:hover {
+  transform: translateY(-8px) scale(1.02);
+  border-color: var(--card-color);
+  box-shadow: 
+    0 20px 40px rgba(0, 0, 0, 0.3),
+    0 0 30px color-mix(in srgb, var(--card-color) 30%, transparent);
+}
+
+.organ-explore-card.selected {
+  background: var(--card-color);
+  border-color: var(--card-color);
+}
+
+.card-icon {
+  font-size: 2.2rem;
+  filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.3));
+  transition: transform 0.3s ease;
+}
+
+.organ-explore-card:hover .card-icon {
+  transform: scale(1.15);
+}
+
+.card-name {
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--text-secondary);
+  transition: color 0.3s ease;
+}
+
+.organ-explore-card:hover .card-name {
+  color: var(--text-primary);
+}
+
+.organ-explore-card.selected .card-name {
+  color: #0a0f1a;
+}
+
+.card-arrow {
+  position: absolute;
+  bottom: 8px;
+  right: 12px;
+  font-size: 1rem;
+  color: var(--card-color);
+  opacity: 0;
+  transform: translateX(-10px);
+  transition: all 0.3s ease;
+}
+
+.organ-explore-card:hover .card-arrow {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+/* ========== FOOTER ========== */
+.explorer-footer {
+  display: flex;
+  justify-content: center;
+}
+
+.pulse-indicator {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 12px 24px;
+  background: var(--glass-bg);
+  backdrop-filter: blur(10px);
+  border: 1px solid var(--glass-border);
+  border-radius: 30px;
+}
+
+.pulse-dot {
+  width: 10px;
+  height: 10px;
+  background: var(--primary-color);
+  border-radius: 50%;
+  animation: pulse 2s ease-in-out infinite;
+  box-shadow: 0 0 10px var(--primary-color);
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.5; transform: scale(0.8); }
+}
+
+.pulse-text {
+  font-size: 0.8rem;
+  color: var(--text-muted);
+  font-weight: 500;
+}
+
+/* ========== RESPONSIVE ========== */
+@media (max-width: 900px) {
+  .body-display {
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .info-panel {
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+    flex: none;
+    width: 100%;
+    max-width: 400px;
+  }
+  
+  .panel-header {
+    width: 100%;
+    justify-content: center;
+  }
+  
+  .system-list, .fact-list {
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 16px;
+  }
+  
+  .explorer-header {
+    gap: 20px;
+  }
+  
+  .header-decoration {
+    display: none;
+  }
+}
+
+@media (max-width: 600px) {
+  .body-explorer {
+    padding: 16px;
+    gap: 24px;
+  }
+  
+  .body-frame {
+    width: 280px;
+    height: 420px;
+  }
+  
+  .organ-cards-grid {
+    grid-template-columns: repeat(4, 1fr);
+    gap: 8px;
+  }
+  
+  .organ-explore-card {
+    padding: 14px 8px;
+    border-radius: 16px;
+  }
+  
+  .card-icon {
+    font-size: 1.8rem;
+  }
+  
+  .card-name {
+    font-size: 0.7rem;
+  }
+  
+  .organ-marker {
+    width: 40px;
+    height: 40px;
+  }
+  
+  .marker-core {
+    width: 30px;
+    height: 30px;
+  }
+  
+  .marker-icon {
+    font-size: 1.1rem;
+  }
+  
+  .info-panel {
+    display: none;
+  }
+}
+
+@media (max-width: 400px) {
+  .organ-cards-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
 }

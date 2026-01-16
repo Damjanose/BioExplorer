@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import './HumanBodySVG.css';
 
@@ -7,217 +7,399 @@ interface HumanBodySVGProps {
   selectedPart?: string;
 }
 
+interface OrganInfo {
+  id: string;
+  name: string;
+  icon: string;
+  description: string;
+  color: string;
+  position: { x: number; y: number };
+  lineAnchor: { x: number; y: number };
+}
+
+const organs: OrganInfo[] = [
+  { 
+    id: 'brain', 
+    name: 'Brain', 
+    icon: '🧠', 
+    description: 'Control center of the body',
+    color: '#ff6bb6', 
+    position: { x: 50, y: 8 },
+    lineAnchor: { x: 50, y: 12 }
+  },
+  { 
+    id: 'heart', 
+    name: 'Heart', 
+    icon: '❤️', 
+    description: 'Pumps blood throughout the body',
+    color: '#ff4757', 
+    position: { x: 54, y: 28 },
+    lineAnchor: { x: 52, y: 30 }
+  },
+  { 
+    id: 'lungs', 
+    name: 'Lungs', 
+    icon: '🫁', 
+    description: 'Enable breathing and oxygen exchange',
+    color: '#00d4aa', 
+    position: { x: 50, y: 32 },
+    lineAnchor: { x: 50, y: 34 }
+  },
+  { 
+    id: 'liver', 
+    name: 'Liver', 
+    icon: '🫀', 
+    description: 'Filters blood and produces bile',
+    color: '#daa520', 
+    position: { x: 42, y: 42 },
+    lineAnchor: { x: 45, y: 43 }
+  },
+  { 
+    id: 'stomach', 
+    name: 'Stomach', 
+    icon: '🍽️', 
+    description: 'Digests food with acids',
+    color: '#ffa559', 
+    position: { x: 56, y: 44 },
+    lineAnchor: { x: 54, y: 45 }
+  },
+  { 
+    id: 'kidneys', 
+    name: 'Kidneys', 
+    icon: '🫘', 
+    description: 'Filter waste from blood',
+    color: '#845ef7', 
+    position: { x: 50, y: 50 },
+    lineAnchor: { x: 50, y: 51 }
+  },
+  { 
+    id: 'intestines', 
+    name: 'Intestines', 
+    icon: '🔄', 
+    description: 'Absorb nutrients from food',
+    color: '#ffb74d', 
+    position: { x: 50, y: 58 },
+    lineAnchor: { x: 50, y: 57 }
+  },
+  { 
+    id: 'skeleton', 
+    name: 'Skeleton', 
+    icon: '🦴', 
+    description: '206 bones support and protect',
+    color: '#e0e0ff', 
+    position: { x: 50, y: 75 },
+    lineAnchor: { x: 50, y: 72 }
+  },
+];
+
 /**
- * Interactive SVG Human Body Component
- * Allows users to click on different body parts to learn about them
+ * Interactive 3D Human Body Component - Award Winning Design
  */
 export const HumanBodySVG: React.FC<HumanBodySVGProps> = ({ 
   onSelectPart, 
   selectedPart 
 }) => {
   const navigate = useNavigate();
+  const [hoveredOrgan, setHoveredOrgan] = useState<string | null>(null);
+  const [activeOrgan, setActiveOrgan] = useState<string | null>(null);
 
   const handlePartClick = (partId: string) => {
+    setActiveOrgan(partId);
     if (onSelectPart) {
       onSelectPart(partId);
     }
-    navigate(`/body/${partId}`);
+    // Small delay for animation before navigation
+    setTimeout(() => {
+      navigate(`/body/${partId}`);
+    }, 300);
   };
 
-  const getPartClass = (partId: string) => {
-    return `body-part ${selectedPart === partId ? 'selected' : ''}`;
-  };
+  const currentOrgan = organs.find(o => o.id === (hoveredOrgan || activeOrgan));
 
   return (
-    <div className="human-body-container">
-      <svg
-        viewBox="0 0 400 600"
-        className="human-body-svg"
-        xmlns="http://www.w3.org/2000/svg"
-      >
-        {/* Body outline */}
-        <g className="body-outline">
-          {/* Head */}
-          <ellipse cx="200" cy="60" rx="45" ry="55" fill="#f5d0c5" stroke="#333" strokeWidth="2" />
+    <div className="body-explorer">
+      {/* Header */}
+      <div className="explorer-header">
+        <div className="header-decoration left">
+          <div className="dna-strand">
+            {[...Array(8)].map((_, i) => (
+              <div key={i} className="dna-node" style={{ animationDelay: `${i * 0.15}s` }} />
+            ))}
+          </div>
+        </div>
+        <div className="header-content">
+          <span className="header-badge">Interactive</span>
+          <h2 className="explorer-title">Human Anatomy Explorer</h2>
+          <p className="explorer-subtitle">Click on any organ to discover how your body works</p>
+        </div>
+        <div className="header-decoration right">
+          <div className="dna-strand">
+            {[...Array(8)].map((_, i) => (
+              <div key={i} className="dna-node" style={{ animationDelay: `${i * 0.15}s` }} />
+            ))}
+          </div>
+        </div>
+      </div>
+
+      {/* Main Body Display */}
+      <div className="body-display">
+        {/* Left Info Panel */}
+        <div className="info-panel left-panel">
+          <div className="panel-header">
+            <span className="panel-icon">📊</span>
+            <span>Body Systems</span>
+          </div>
+          <div className="system-list">
+            {['Nervous', 'Circulatory', 'Respiratory', 'Digestive'].map((system, i) => (
+              <div key={system} className="system-item" style={{ animationDelay: `${i * 0.1}s` }}>
+                <div className="system-dot" />
+                <span>{system}</span>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        {/* Central Body */}
+        <div className="body-center">
+          <div className="body-frame">
+            {/* Scanning effect */}
+            <div className="scan-line" />
+            
+            {/* Grid overlay */}
+            <div className="grid-overlay" />
+            
+            {/* Corner brackets */}
+            <div className="corner-bracket top-left" />
+            <div className="corner-bracket top-right" />
+            <div className="corner-bracket bottom-left" />
+            <div className="corner-bracket bottom-right" />
+
+            {/* Anatomical Body SVG */}
+            <svg viewBox="0 0 200 440" className="anatomy-svg">
+              <defs>
+                <linearGradient id="bodyFill" x1="0%" y1="0%" x2="100%" y2="100%">
+                  <stop offset="0%" stopColor="#1a3a5c" />
+                  <stop offset="50%" stopColor="#0f2a4a" />
+                  <stop offset="100%" stopColor="#0a1a30" />
+                </linearGradient>
+                <linearGradient id="glowGradient" x1="0%" y1="0%" x2="0%" y2="100%">
+                  <stop offset="0%" stopColor="#00d4aa" stopOpacity="0.8" />
+                  <stop offset="100%" stopColor="#00d4aa" stopOpacity="0" />
+                </linearGradient>
+                <filter id="softGlow" x="-50%" y="-50%" width="200%" height="200%">
+                  <feGaussianBlur stdDeviation="4" result="blur" />
+                  <feMerge>
+                    <feMergeNode in="blur" />
+                    <feMergeNode in="SourceGraphic" />
+                  </feMerge>
+                </filter>
+                <filter id="strongGlow" x="-50%" y="-50%" width="200%" height="200%">
+                  <feGaussianBlur stdDeviation="6" result="blur" />
+                  <feMerge>
+                    <feMergeNode in="blur" />
+                    <feMergeNode in="blur" />
+                    <feMergeNode in="SourceGraphic" />
+                  </feMerge>
+                </filter>
+              </defs>
+
+              {/* Human Body Outline - Anatomical Style */}
+              <g className="body-anatomy" filter="url(#softGlow)">
+                {/* Head */}
+                <ellipse cx="100" cy="38" rx="32" ry="36" 
+                  fill="url(#bodyFill)" 
+                  stroke="#00d4aa" 
+                  strokeWidth="1.5"
+                  className="body-segment"
+                />
+                {/* Face details */}
+                <ellipse cx="100" cy="42" rx="22" ry="24" 
+                  fill="none" 
+                  stroke="#00d4aa" 
+                  strokeWidth="0.5"
+                  strokeDasharray="2 4"
+                  opacity="0.4"
+                />
+                
+                {/* Neck */}
+                <path d="M88 72 L88 90 Q88 95 92 98 L108 98 Q112 95 112 90 L112 72"
+                  fill="url(#bodyFill)"
+                  stroke="#00d4aa"
+                  strokeWidth="1"
+                  className="body-segment"
+                />
+                
+                {/* Shoulders & Torso */}
+                <path d="M45 100 
+                  Q30 105 25 125 L20 165 Q18 175 22 185 L25 200 
+                  Q28 210 35 215 L45 220 
+                  L45 285 Q45 295 55 300 L65 305
+                  L65 380 Q65 390 70 395 L75 400 L90 400 Q95 398 95 390 L95 305
+                  L105 305
+                  L105 390 Q105 398 110 400 L125 400 Q130 395 135 390 L135 305
+                  L145 300 Q155 295 155 285 L155 220
+                  L165 215 Q172 210 175 200 L178 185 Q182 175 180 165 L175 125 
+                  Q170 105 155 100
+                  L112 98 L88 98 Z"
+                  fill="url(#bodyFill)"
+                  stroke="#00d4aa"
+                  strokeWidth="1.5"
+                  className="body-segment"
+                />
+
+                {/* Internal organ outlines */}
+                <g className="internal-organs" opacity="0.6">
+                  {/* Brain area */}
+                  <ellipse cx="100" cy="35" rx="18" ry="16" 
+                    fill="none" stroke="#ff6bb6" strokeWidth="1" strokeDasharray="3 3"/>
+                  
+                  {/* Heart */}
+                  <path d="M95 135 Q85 125 85 140 Q85 155 100 170 Q115 155 115 140 Q115 125 105 135 Q100 130 95 135"
+                    fill="none" stroke="#ff4757" strokeWidth="1" strokeDasharray="3 3"/>
+                  
+                  {/* Lungs */}
+                  <ellipse cx="75" cy="150" rx="18" ry="30" 
+                    fill="none" stroke="#00d4aa" strokeWidth="1" strokeDasharray="3 3"/>
+                  <ellipse cx="125" cy="150" rx="18" ry="30" 
+                    fill="none" stroke="#00d4aa" strokeWidth="1" strokeDasharray="3 3"/>
+                  
+                  {/* Liver */}
+                  <ellipse cx="120" cy="195" rx="25" ry="15" 
+                    fill="none" stroke="#daa520" strokeWidth="1" strokeDasharray="3 3"/>
+                  
+                  {/* Stomach */}
+                  <ellipse cx="85" cy="200" rx="18" ry="14" 
+                    fill="none" stroke="#ffa559" strokeWidth="1" strokeDasharray="3 3"/>
+                  
+                  {/* Kidneys */}
+                  <ellipse cx="70" cy="220" rx="10" ry="14" 
+                    fill="none" stroke="#845ef7" strokeWidth="1" strokeDasharray="3 3"/>
+                  <ellipse cx="130" cy="220" rx="10" ry="14" 
+                    fill="none" stroke="#845ef7" strokeWidth="1" strokeDasharray="3 3"/>
+                  
+                  {/* Intestines */}
+                  <ellipse cx="100" cy="255" rx="30" ry="20" 
+                    fill="none" stroke="#ffb74d" strokeWidth="1" strokeDasharray="3 3"/>
+                </g>
+
+                {/* Skeletal hints */}
+                <g className="skeleton-hints" opacity="0.3">
+                  <line x1="100" y1="98" x2="100" y2="300" stroke="#e0e0ff" strokeWidth="2"/>
+                  <line x1="65" y1="305" x2="65" y2="395" stroke="#e0e0ff" strokeWidth="1.5"/>
+                  <line x1="135" y1="305" x2="135" y2="395" stroke="#e0e0ff" strokeWidth="1.5"/>
+                </g>
+              </g>
+
+              {/* Circulatory system hint */}
+              <g className="circulatory-system" opacity="0.4">
+                <path d="M100 170 L100 300" stroke="#ff4757" strokeWidth="1.5" strokeDasharray="5 5"/>
+                <path d="M100 170 L75 150" stroke="#ff4757" strokeWidth="1" strokeDasharray="3 3"/>
+                <path d="M100 170 L125 150" stroke="#ff4757" strokeWidth="1" strokeDasharray="3 3"/>
+              </g>
+            </svg>
+
+            {/* Interactive Hotspots */}
+            <div className="organ-markers">
+              {organs.map((organ) => (
+                <button
+                  key={organ.id}
+                  className={`organ-marker ${selectedPart === organ.id ? 'selected' : ''} ${hoveredOrgan === organ.id ? 'hovered' : ''} ${activeOrgan === organ.id ? 'active' : ''}`}
+                  style={{
+                    left: `${organ.position.x}%`,
+                    top: `${organ.position.y}%`,
+                    '--marker-color': organ.color,
+                  } as React.CSSProperties}
+                  onClick={() => handlePartClick(organ.id)}
+                  onMouseEnter={() => setHoveredOrgan(organ.id)}
+                  onMouseLeave={() => setHoveredOrgan(null)}
+                  aria-label={`Explore the ${organ.name}`}
+                >
+                  <span className="marker-ring ring-1" />
+                  <span className="marker-ring ring-2" />
+                  <span className="marker-ring ring-3" />
+                  <span className="marker-core" />
+                  <span className="marker-icon">{organ.icon}</span>
+                </button>
+              ))}
+            </div>
+          </div>
           
-          {/* Neck */}
-          <rect x="185" y="110" width="30" height="30" fill="#f5d0c5" stroke="#333" strokeWidth="2" />
-          
-          {/* Torso */}
-          <path
-            d="M130 140 L270 140 L280 350 L120 350 Z"
-            fill="#e8c4b8"
-            stroke="#333"
-            strokeWidth="2"
-          />
-          
-          {/* Arms */}
-          <path
-            d="M130 145 L80 180 L60 280 L75 285 L100 200 L130 180"
-            fill="#f5d0c5"
-            stroke="#333"
-            strokeWidth="2"
-          />
-          <path
-            d="M270 145 L320 180 L340 280 L325 285 L300 200 L270 180"
-            fill="#f5d0c5"
-            stroke="#333"
-            strokeWidth="2"
-          />
-          
-          {/* Legs */}
-          <path
-            d="M140 350 L130 500 L120 580 L160 580 L165 500 L175 380"
-            fill="#f5d0c5"
-            stroke="#333"
-            strokeWidth="2"
-          />
-          <path
-            d="M260 350 L270 500 L280 580 L240 580 L235 500 L225 380"
-            fill="#f5d0c5"
-            stroke="#333"
-            strokeWidth="2"
-          />
-        </g>
+          {/* Info Display */}
+          <div className={`organ-info-display ${currentOrgan ? 'visible' : ''}`}>
+            {currentOrgan && (
+              <>
+                <span className="info-icon">{currentOrgan.icon}</span>
+                <div className="info-content">
+                  <h4>{currentOrgan.name}</h4>
+                  <p>{currentOrgan.description}</p>
+                </div>
+                <span className="info-arrow">→</span>
+              </>
+            )}
+          </div>
+        </div>
 
-        {/* Interactive organs */}
-        <g className="organs">
-          {/* Brain */}
-          <ellipse
-            id="brain"
-            cx="200"
-            cy="50"
-            rx="35"
-            ry="30"
-            className={getPartClass('brain')}
-            onClick={() => handlePartClick('brain')}
-          />
-          <text x="200" y="55" className="organ-label" pointerEvents="none">
-            Brain
-          </text>
+        {/* Right Info Panel */}
+        <div className="info-panel right-panel">
+          <div className="panel-header">
+            <span className="panel-icon">🔬</span>
+            <span>Quick Facts</span>
+          </div>
+          <div className="fact-list">
+            <div className="fact-item">
+              <span className="fact-number">206</span>
+              <span className="fact-label">Bones</span>
+            </div>
+            <div className="fact-item">
+              <span className="fact-number">78</span>
+              <span className="fact-label">Organs</span>
+            </div>
+            <div className="fact-item">
+              <span className="fact-number">600+</span>
+              <span className="fact-label">Muscles</span>
+            </div>
+            <div className="fact-item">
+              <span className="fact-number">60K</span>
+              <span className="fact-label">Miles of vessels</span>
+            </div>
+          </div>
+        </div>
+      </div>
 
-          {/* Heart */}
-          <path
-            id="heart"
-            d="M185 180 C170 165 150 175 150 195 C150 220 185 240 200 255 C215 240 250 220 250 195 C250 175 230 165 215 180 C205 170 195 170 185 180"
-            className={getPartClass('heart')}
-            onClick={() => handlePartClick('heart')}
-            transform="scale(0.7) translate(90, 70)"
-          />
-          <text x="200" y="200" className="organ-label" pointerEvents="none">
-            Heart
-          </text>
+      {/* Organ Selection Cards */}
+      <div className="organ-cards-section">
+        <div className="cards-header">
+          <h3>Select an Organ to Explore</h3>
+          <div className="cards-decoration" />
+        </div>
+        <div className="organ-cards-grid">
+          {organs.map((organ, index) => (
+            <button
+              key={organ.id}
+              className={`organ-explore-card ${selectedPart === organ.id ? 'selected' : ''}`}
+              onClick={() => handlePartClick(organ.id)}
+              onMouseEnter={() => setHoveredOrgan(organ.id)}
+              onMouseLeave={() => setHoveredOrgan(null)}
+              style={{ 
+                '--card-color': organ.color,
+                '--card-delay': `${index * 0.05}s`
+              } as React.CSSProperties}
+            >
+              <div className="card-glow" />
+              <span className="card-icon">{organ.icon}</span>
+              <span className="card-name">{organ.name}</span>
+              <span className="card-arrow">→</span>
+            </button>
+          ))}
+        </div>
+      </div>
 
-          {/* Lungs */}
-          <ellipse
-            id="lungs-left"
-            cx="160"
-            cy="200"
-            rx="25"
-            ry="45"
-            className={getPartClass('lungs')}
-            onClick={() => handlePartClick('lungs')}
-          />
-          <ellipse
-            id="lungs-right"
-            cx="240"
-            cy="200"
-            rx="25"
-            ry="45"
-            className={getPartClass('lungs')}
-            onClick={() => handlePartClick('lungs')}
-          />
-          <text x="160" y="205" className="organ-label small" pointerEvents="none">
-            Lung
-          </text>
-          <text x="240" y="205" className="organ-label small" pointerEvents="none">
-            Lung
-          </text>
-
-          {/* Liver */}
-          <ellipse
-            id="liver"
-            cx="230"
-            cy="270"
-            rx="35"
-            ry="20"
-            className={getPartClass('liver')}
-            onClick={() => handlePartClick('liver')}
-          />
-          <text x="230" y="275" className="organ-label" pointerEvents="none">
-            Liver
-          </text>
-
-          {/* Stomach */}
-          <ellipse
-            id="stomach"
-            cx="175"
-            cy="285"
-            rx="25"
-            ry="20"
-            className={getPartClass('stomach')}
-            onClick={() => handlePartClick('stomach')}
-          />
-          <text x="175" y="290" className="organ-label small" pointerEvents="none">
-            Stomach
-          </text>
-
-          {/* Kidneys */}
-          <ellipse
-            id="kidney-left"
-            cx="155"
-            cy="310"
-            rx="15"
-            ry="20"
-            className={getPartClass('kidneys')}
-            onClick={() => handlePartClick('kidneys')}
-          />
-          <ellipse
-            id="kidney-right"
-            cx="245"
-            cy="310"
-            rx="15"
-            ry="20"
-            className={getPartClass('kidneys')}
-            onClick={() => handlePartClick('kidneys')}
-          />
-
-          {/* Intestines */}
-          <ellipse
-            id="intestines"
-            cx="200"
-            cy="340"
-            rx="40"
-            ry="25"
-            className={getPartClass('intestines')}
-            onClick={() => handlePartClick('intestines')}
-          />
-          <text x="200" y="345" className="organ-label small" pointerEvents="none">
-            Intestines
-          </text>
-
-          {/* Skeleton indicator (on the side) */}
-          <rect
-            id="skeleton"
-            x="300"
-            y="250"
-            width="60"
-            height="80"
-            rx="5"
-            className={getPartClass('skeleton')}
-            onClick={() => handlePartClick('skeleton')}
-          />
-          <text x="330" y="285" className="organ-label small" pointerEvents="none">
-            Skeleton
-          </text>
-          <text x="330" y="300" className="organ-label tiny" pointerEvents="none">
-            (bones)
-          </text>
-        </g>
-      </svg>
-
-      <div className="body-legend">
-        <p>👆 Click on any organ to learn more!</p>
+      {/* Footer */}
+      <div className="explorer-footer">
+        <div className="pulse-indicator">
+          <span className="pulse-dot" />
+          <span className="pulse-text">Interactive Mode Active</span>
+        </div>
       </div>
     </div>
   );
