@@ -1,0 +1,150 @@
+.human-body-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 20px;
+}
+
+.human-body-svg {
+  max-width: 400px;
+  width: 100%;
+  height: auto;
+}
+
+.body-part {
+  cursor: pointer;
+  fill: #ff9999;
+  stroke: #cc0000;
+  stroke-width: 2;
+  transition: all 0.3s ease;
+  opacity: 0.8;
+}
+
+.body-part:hover {
+  fill: #ff6666;
+  stroke: #990000;
+  stroke-width: 3;
+  opacity: 1;
+  filter: drop-shadow(0 0 8px rgba(255, 0, 0, 0.5));
+}
+
+.body-part.selected {
+  fill: #ff3333;
+  stroke: #660000;
+  stroke-width: 3;
+  opacity: 1;
+}
+
+/* Specific organ colors */
+#brain,
+.body-part[id="brain"] {
+  fill: #ffb6c1;
+  stroke: #ff69b4;
+}
+
+#brain:hover {
+  fill: #ff69b4;
+}
+
+#heart,
+.body-part[id="heart"] {
+  fill: #ff4444;
+  stroke: #cc0000;
+}
+
+#heart:hover {
+  fill: #ff0000;
+}
+
+#lungs-left,
+#lungs-right,
+.body-part[id^="lungs"] {
+  fill: #87ceeb;
+  stroke: #4682b4;
+}
+
+#lungs-left:hover,
+#lungs-right:hover {
+  fill: #4682b4;
+}
+
+#liver {
+  fill: #8b4513;
+  stroke: #654321;
+}
+
+#liver:hover {
+  fill: #a0522d;
+}
+
+#stomach {
+  fill: #ffa07a;
+  stroke: #ff7f50;
+}
+
+#stomach:hover {
+  fill: #ff7f50;
+}
+
+#kidney-left,
+#kidney-right {
+  fill: #b8860b;
+  stroke: #8b6914;
+}
+
+#kidney-left:hover,
+#kidney-right:hover {
+  fill: #daa520;
+}
+
+#intestines {
+  fill: #deb887;
+  stroke: #d2691e;
+}
+
+#intestines:hover {
+  fill: #d2691e;
+}
+
+#skeleton {
+  fill: #f5f5dc;
+  stroke: #d3d3d3;
+}
+
+#skeleton:hover {
+  fill: #fffacd;
+}
+
+.organ-label {
+  font-size: 10px;
+  font-weight: bold;
+  fill: #333;
+  text-anchor: middle;
+  pointer-events: none;
+  -webkit-user-select: none;
+  user-select: none;
+}
+
+.organ-label.small {
+  font-size: 8px;
+}
+
+.organ-label.tiny {
+  font-size: 6px;
+  font-weight: normal;
+}
+
+.body-legend {
+  margin-top: 20px;
+  padding: 15px 25px;
+  background: linear-gradient(135deg, #e8f5e9 0%, #c8e6c9 100%);
+  border-radius: 25px;
+  font-size: 16px;
+  color: #2e7d32;
+  font-weight: 500;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.body-legend p {
+  margin: 0;
+}

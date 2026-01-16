@@ -1,0 +1,260 @@
+{
+  "quizzes": {
+    "heart": [
+      {
+        "id": "heart-1",
+        "question": "What is the main function of the heart?",
+        "options": ["Pumping blood", "Digesting food", "Filtering toxins", "Producing hormones"],
+        "correctIndex": 0
+      },
+      {
+        "id": "heart-2",
+        "question": "How many times does the heart beat per day approximately?",
+        "options": ["10,000 times", "50,000 times", "100,000 times", "500,000 times"],
+        "correctIndex": 2
+      },
+      {
+        "id": "heart-3",
+        "question": "Which system does the heart belong to?",
+        "options": ["Nervous System", "Cardiovascular System", "Digestive System", "Respiratory System"],
+        "correctIndex": 1
+      },
+      {
+        "id": "heart-4",
+        "question": "How many chambers does the human heart have?",
+        "options": ["2", "3", "4", "5"],
+        "correctIndex": 2
+      },
+      {
+        "id": "heart-5",
+        "question": "What color is deoxygenated blood?",
+        "options": ["Bright red", "Blue", "Dark red", "Purple"],
+        "correctIndex": 2
+      }
+    ],
+    "brain": [
+      {
+        "id": "brain-1",
+        "question": "Approximately how many neurons are in the human brain?",
+        "options": ["1 million", "1 billion", "86 billion", "1 trillion"],
+        "correctIndex": 2
+      },
+      {
+        "id": "brain-2",
+        "question": "What percentage of the body's energy does the brain use?",
+        "options": ["5%", "10%", "20%", "50%"],
+        "correctIndex": 2
+      },
+      {
+        "id": "brain-3",
+        "question": "Which system does the brain control?",
+        "options": ["Only movement", "Only thinking", "All body functions", "Only breathing"],
+        "correctIndex": 2
+      },
+      {
+        "id": "brain-4",
+        "question": "How much does the average adult brain weigh?",
+        "options": ["1 pound", "3 pounds", "5 pounds", "10 pounds"],
+        "correctIndex": 1
+      },
+      {
+        "id": "brain-5",
+        "question": "What percentage of the brain is water?",
+        "options": ["25%", "50%", "73%", "90%"],
+        "correctIndex": 2
+      }
+    ],
+    "lungs": [
+      {
+        "id": "lungs-1",
+        "question": "What gas do the lungs bring into the body?",
+        "options": ["Carbon dioxide", "Nitrogen", "Oxygen", "Hydrogen"],
+        "correctIndex": 2
+      },
+      {
+        "id": "lungs-2",
+        "question": "How many lobes does the right lung have?",
+        "options": ["1", "2", "3", "4"],
+        "correctIndex": 2
+      },
+      {
+        "id": "lungs-3",
+        "question": "Why is the left lung smaller than the right?",
+        "options": ["Birth defect", "To make room for the heart", "It's not smaller", "To make room for the liver"],
+        "correctIndex": 1
+      },
+      {
+        "id": "lungs-4",
+        "question": "Approximately how many times do you breathe per day?",
+        "options": ["5,000", "10,000", "20,000", "50,000"],
+        "correctIndex": 2
+      },
+      {
+        "id": "lungs-5",
+        "question": "What waste gas do the lungs release?",
+        "options": ["Oxygen", "Nitrogen", "Carbon dioxide", "Water vapor"],
+        "correctIndex": 2
+      }
+    ],
+    "liver": [
+      {
+        "id": "liver-1",
+        "question": "What is the liver's main role?",
+        "options": ["Pumping blood", "Filtering blood and producing bile", "Breathing", "Thinking"],
+        "correctIndex": 1
+      },
+      {
+        "id": "liver-2",
+        "question": "Can the liver regenerate itself?",
+        "options": ["No", "Yes, up to 25%", "Yes, even if 75% is removed", "Only in children"],
+        "correctIndex": 2
+      },
+      {
+        "id": "liver-3",
+        "question": "How many functions does the liver perform?",
+        "options": ["About 50", "About 100", "About 250", "Over 500"],
+        "correctIndex": 3
+      },
+      {
+        "id": "liver-4",
+        "question": "Where is the liver located?",
+        "options": ["Left side of abdomen", "Upper right abdomen", "Center of chest", "Lower abdomen"],
+        "correctIndex": 1
+      },
+      {
+        "id": "liver-5",
+        "question": "What substance does the liver produce for digestion?",
+        "options": ["Insulin", "Bile", "Saliva", "Stomach acid"],
+        "correctIndex": 1
+      }
+    ],
+    "stomach": [
+      {
+        "id": "stomach-1",
+        "question": "What does the stomach produce to break down food?",
+        "options": ["Bile", "Insulin", "Acid and enzymes", "Blood"],
+        "correctIndex": 2
+      },
+      {
+        "id": "stomach-2",
+        "question": "How much food can the stomach hold when stretched?",
+        "options": ["0.5 liters", "1 liter", "3 liters", "5 liters"],
+        "correctIndex": 1
+      },
+      {
+        "id": "stomach-3",
+        "question": "How often does the stomach get a new mucus lining?",
+        "options": ["Every day", "Every 2 weeks", "Every month", "Every year"],
+        "correctIndex": 1
+      },
+      {
+        "id": "stomach-4",
+        "question": "Which organ does food go to after the stomach?",
+        "options": ["Liver", "Large intestine", "Small intestine", "Esophagus"],
+        "correctIndex": 2
+      },
+      {
+        "id": "stomach-5",
+        "question": "Is stomach acid strong enough to dissolve metal?",
+        "options": ["No, it's very weak", "Yes, it can", "Only in adults", "Only certain metals"],
+        "correctIndex": 1
+      }
+    ],
+    "kidneys": [
+      {
+        "id": "kidneys-1",
+        "question": "What is the main function of the kidneys?",
+        "options": ["Digesting food", "Filtering blood", "Pumping blood", "Producing oxygen"],
+        "correctIndex": 1
+      },
+      {
+        "id": "kidneys-2",
+        "question": "How many kidneys does a person have?",
+        "options": ["1", "2", "3", "4"],
+        "correctIndex": 1
+      },
+      {
+        "id": "kidneys-3",
+        "question": "How much blood do the kidneys filter daily?",
+        "options": ["50 liters", "100 liters", "200 liters", "500 liters"],
+        "correctIndex": 2
+      },
+      {
+        "id": "kidneys-4",
+        "question": "What are the tiny filters in the kidneys called?",
+        "options": ["Neurons", "Nephrons", "Alveoli", "Capillaries"],
+        "correctIndex": 1
+      },
+      {
+        "id": "kidneys-5",
+        "question": "Can you survive with only one kidney?",
+        "options": ["No", "Yes", "Only for a few years", "Only with medication"],
+        "correctIndex": 1
+      }
+    ],
+    "intestines": [
+      {
+        "id": "intestines-1",
+        "question": "What does the small intestine mainly do?",
+        "options": ["Store waste", "Absorb nutrients", "Produce bile", "Filter blood"],
+        "correctIndex": 1
+      },
+      {
+        "id": "intestines-2",
+        "question": "How long is the small intestine approximately?",
+        "options": ["5 feet", "10 feet", "20 feet", "50 feet"],
+        "correctIndex": 2
+      },
+      {
+        "id": "intestines-3",
+        "question": "What does the large intestine absorb?",
+        "options": ["Nutrients", "Water and electrolytes", "Oxygen", "Fat"],
+        "correctIndex": 1
+      },
+      {
+        "id": "intestines-4",
+        "question": "What lives in your gut and helps digestion?",
+        "options": ["Viruses", "Bacteria (microbiome)", "Parasites", "Nothing"],
+        "correctIndex": 1
+      },
+      {
+        "id": "intestines-5",
+        "question": "How long does food take to pass through the stomach and small intestine?",
+        "options": ["1-2 hours", "6-8 hours", "24 hours", "3 days"],
+        "correctIndex": 1
+      }
+    ],
+    "skeleton": [
+      {
+        "id": "skeleton-1",
+        "question": "How many bones does an adult human have?",
+        "options": ["106", "206", "306", "406"],
+        "correctIndex": 1
+      },
+      {
+        "id": "skeleton-2",
+        "question": "What is the longest bone in the human body?",
+        "options": ["Spine", "Femur (thigh bone)", "Humerus (arm bone)", "Tibia (shin bone)"],
+        "correctIndex": 1
+      },
+      {
+        "id": "skeleton-3",
+        "question": "Where is the smallest bone located?",
+        "options": ["In the finger", "In the toe", "In the ear", "In the nose"],
+        "correctIndex": 2
+      },
+      {
+        "id": "skeleton-4",
+        "question": "Do babies have more or fewer bones than adults?",
+        "options": ["Fewer bones", "Same number", "More bones", "It varies"],
+        "correctIndex": 2
+      },
+      {
+        "id": "skeleton-5",
+        "question": "What do bones produce inside their marrow?",
+        "options": ["Hormones", "Blood cells", "Enzymes", "Bile"],
+        "correctIndex": 1
+      }
+    ]
+  }
+}

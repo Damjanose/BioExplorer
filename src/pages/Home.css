@@ -1,0 +1,124 @@
+.home-page {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.home-header {
+  text-align: center;
+  padding: 40px 20px;
+  background: linear-gradient(135deg, #4caf50 0%, #81c784 100%);
+  color: white;
+}
+
+.home-header h1 {
+  font-size: 3rem;
+  margin: 0 0 12px 0;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.home-subtitle {
+  font-size: 1.3rem;
+  opacity: 0.95;
+  margin: 0;
+}
+
+.home-main {
+  flex: 1;
+  padding: 40px 20px;
+  max-width: 1200px;
+  margin: 0 auto;
+  width: 100%;
+}
+
+.body-section {
+  margin-bottom: 60px;
+}
+
+.parts-list-section h2 {
+  text-align: center;
+  font-size: 1.8rem;
+  color: #333;
+  margin-bottom: 24px;
+}
+
+.parts-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 16px;
+}
+
+.part-card {
+  display: flex;
+  align-items: center;
+  padding: 20px;
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  text-decoration: none;
+  color: inherit;
+  transition: all 0.3s ease;
+}
+
+.part-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+}
+
+.part-icon {
+  font-size: 2.5rem;
+  margin-right: 16px;
+}
+
+.part-info {
+  flex: 1;
+}
+
+.part-info h3 {
+  margin: 0 0 4px 0;
+  font-size: 1.2rem;
+  color: #333;
+}
+
+.part-system {
+  font-size: 0.85rem;
+  color: #666;
+}
+
+.part-arrow {
+  font-size: 1.5rem;
+  color: #4caf50;
+  opacity: 0;
+  transform: translateX(-10px);
+  transition: all 0.3s ease;
+}
+
+.part-card:hover .part-arrow {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+.home-footer {
+  text-align: center;
+  padding: 24px 20px;
+  background: #f5f5f5;
+  color: #666;
+}
+
+.home-footer p {
+  margin: 0;
+}
+
+@media (max-width: 768px) {
+  .home-header h1 {
+    font-size: 2rem;
+  }
+
+  .home-subtitle {
+    font-size: 1rem;
+  }
+
+  .parts-grid {
+    grid-template-columns: 1fr;
+  }
+}
