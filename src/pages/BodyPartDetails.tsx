@@ -2,6 +2,8 @@ import React from 'react';
 import { useParams, useNavigate, Link } from 'react-router-dom';
 import { useBodyPart } from '../hooks/useBodyPart';
 import BodyPartCard from '../components/BodyPartCard';
+import LanguageSwitcher from '../components/LanguageSwitcher';
+import { useLanguage } from '../i18n';
 import './BodyPartDetails.css';
 
 /**
@@ -11,42 +13,55 @@ export const BodyPartDetails: React.FC = () => {
   const { partId } = useParams<{ partId: string }>();
   const navigate = useNavigate();
   const { info, wikipedia, isLoading, error } = useBodyPart(partId || '');
+  const { t } = useLanguage();
 
   if (!partId) {
     return (
       <div className="details-page">
         <div className="error-container">
-          <h2>Body part not found</h2>
-          <Link to="/" className="back-link">← Back to Home</Link>
+          <h2>{t.details.notFound}</h2>
+          <Link to="/" className="back-link">{t.nav.backToHome}</Link>
         </div>
       </div>
     );
   }
 
+  // Get translated body part data
+  const translatedData = t.bodyPartData[partId as keyof typeof t.bodyPartData];
+  const translatedInfo = translatedData ? {
+    ...info,
+    name: translatedData.name,
+    system: translatedData.system,
+    description: translatedData.description,
+    function: translatedData.function,
+    funFacts: translatedData.funFacts,
+  } : info;
+
   return (
     <div className="details-page">
       <nav className="details-nav">
         <Link to="/" className="nav-link">
-          ← Back to Body
+          {t.nav.backToBody}
         </Link>
+        <LanguageSwitcher />
         <button 
           className="quiz-button"
           onClick={() => navigate(`/quiz/${partId}`)}
         >
-          🎯 Take Quiz
+          🎯 {t.details.takeQuiz}
         </button>
       </nav>
 
       <main className="details-main">
         <BodyPartCard 
-          bodyPart={info}
+          bodyPart={translatedInfo}
           wikipedia={wikipedia}
           isLoading={isLoading}
         />
 
         {error && (
           <div className="api-notice">
-            <p>ℹ️ Using offline data (Wikipedia unavailable)</p>
+            <p>ℹ️ {t.details.apiNotice}</p>
           </div>
         )}
 
@@ -55,10 +70,10 @@ export const BodyPartDetails: React.FC = () => {
             className="action-button primary"
             onClick={() => navigate(`/quiz/${partId}`)}
           >
-            🧠 Test Your Knowledge
+            🧠 {t.details.testKnowledge}
           </button>
           <Link to="/" className="action-button secondary">
-            🔍 Explore Other Parts
+            🔍 {t.details.exploreOther}
           </Link>
         </div>
       </main>

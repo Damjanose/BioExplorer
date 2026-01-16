@@ -1,7 +1,9 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import HumanBodySVG from '../components/HumanBodySVG';
+import LanguageSwitcher from '../components/LanguageSwitcher';
 import { getAllBodyParts } from '../api/bodyApi';
+import { useLanguage } from '../i18n';
 import './Home.css';
 
 /**
@@ -9,13 +11,17 @@ import './Home.css';
  */
 export const Home: React.FC = () => {
   const bodyParts = getAllBodyParts();
+  const { t } = useLanguage();
 
   return (
     <div className="home-page">
       <header className="home-header">
-        <h1>🧬 BioExplorer</h1>
+        <div className="header-top">
+          <h1>🧬 {t.app.title}</h1>
+          <LanguageSwitcher />
+        </div>
         <p className="home-subtitle">
-          Explore the human body and learn about its amazing parts!
+          {t.app.subtitle}
         </p>
       </header>
 
@@ -25,7 +31,7 @@ export const Home: React.FC = () => {
         </section>
 
         <section className="parts-list-section">
-          <h2>📋 All Body Parts</h2>
+          <h2>📋 {t.home.allBodyParts}</h2>
           <div className="parts-grid">
             {bodyParts.map((part) => (
               <Link 
@@ -35,8 +41,8 @@ export const Home: React.FC = () => {
               >
                 <span className="part-icon">{getPartIcon(part.id)}</span>
                 <div className="part-info">
-                  <h3>{part.name}</h3>
-                  <span className="part-system">{part.system}</span>
+                  <h3>{t.bodyParts[part.id as keyof typeof t.bodyParts] || part.name}</h3>
+                  <span className="part-system">{t.bodyPartData[part.id as keyof typeof t.bodyPartData]?.system || part.system}</span>
                 </div>
                 <span className="part-arrow">→</span>
               </Link>
@@ -46,7 +52,7 @@ export const Home: React.FC = () => {
       </main>
 
       <footer className="home-footer">
-        <p>🎓 A school biology project | Built with React + TypeScript</p>
+        <p>🎓 {t.app.footer}</p>
       </footer>
     </div>
   );

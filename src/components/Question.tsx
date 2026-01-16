@@ -1,4 +1,5 @@
 import React from 'react';
+import { useLanguage } from '../i18n';
 import './Question.css';
 
 interface QuestionProps {
@@ -23,6 +24,7 @@ export const Question: React.FC<QuestionProps> = ({
   questionNumber,
   totalQuestions,
 }) => {
+  const { t } = useLanguage();
   const hasAnswered = selectedAnswer !== null;
 
   const getOptionClass = (index: number) => {
@@ -59,7 +61,7 @@ export const Question: React.FC<QuestionProps> = ({
     <div className="question-container">
       <div className="question-header">
         <span className="question-number">
-          Question {questionNumber} of {totalQuestions}
+          {t.quiz.question} {questionNumber} {t.quiz.of} {totalQuestions}
         </span>
       </div>
       
@@ -85,9 +87,9 @@ export const Question: React.FC<QuestionProps> = ({
       {hasAnswered && (
         <div className={`feedback ${selectedAnswer === correctIndex ? 'correct' : 'incorrect'}`}>
           {selectedAnswer === correctIndex ? (
-            <>🎉 Correct! Great job!</>
+            <>🎉 {t.quiz.correct}</>
           ) : (
-            <>❌ Not quite. The correct answer is: <strong>{options[correctIndex]}</strong></>
+            <>❌ {t.quiz.incorrect} <strong>{options[correctIndex]}</strong></>
           )}
         </div>
       )}

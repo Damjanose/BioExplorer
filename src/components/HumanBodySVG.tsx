@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { useLanguage } from '../i18n';
 import './HumanBodySVG.css';
 
 interface HumanBodySVGProps {
@@ -9,9 +10,7 @@ interface HumanBodySVGProps {
 
 interface OrganInfo {
   id: string;
-  name: string;
   icon: string;
-  description: string;
   color: string;
   position: { x: number; y: number };
   lineAnchor: { x: number; y: number };
@@ -20,72 +19,56 @@ interface OrganInfo {
 const organs: OrganInfo[] = [
   { 
     id: 'brain', 
-    name: 'Brain', 
     icon: '🧠', 
-    description: 'Control center of the body',
     color: '#ff6bb6', 
     position: { x: 50, y: 8 },
     lineAnchor: { x: 50, y: 12 }
   },
   { 
     id: 'heart', 
-    name: 'Heart', 
     icon: '❤️', 
-    description: 'Pumps blood throughout the body',
     color: '#ff4757', 
     position: { x: 54, y: 28 },
     lineAnchor: { x: 52, y: 30 }
   },
   { 
     id: 'lungs', 
-    name: 'Lungs', 
     icon: '🫁', 
-    description: 'Enable breathing and oxygen exchange',
     color: '#00d4aa', 
     position: { x: 50, y: 32 },
     lineAnchor: { x: 50, y: 34 }
   },
   { 
     id: 'liver', 
-    name: 'Liver', 
     icon: '🫀', 
-    description: 'Filters blood and produces bile',
     color: '#daa520', 
     position: { x: 42, y: 42 },
     lineAnchor: { x: 45, y: 43 }
   },
   { 
     id: 'stomach', 
-    name: 'Stomach', 
     icon: '🍽️', 
-    description: 'Digests food with acids',
     color: '#ffa559', 
     position: { x: 56, y: 44 },
     lineAnchor: { x: 54, y: 45 }
   },
   { 
     id: 'kidneys', 
-    name: 'Kidneys', 
     icon: '🫘', 
-    description: 'Filter waste from blood',
     color: '#845ef7', 
     position: { x: 50, y: 50 },
     lineAnchor: { x: 50, y: 51 }
   },
   { 
     id: 'intestines', 
-    name: 'Intestines', 
     icon: '🔄', 
-    description: 'Absorb nutrients from food',
     color: '#ffb74d', 
     position: { x: 50, y: 58 },
     lineAnchor: { x: 50, y: 57 }
   },
   { 
     id: 'skeleton', 
-    name: 'Skeleton', 
     icon: '🦴', 
-    description: '206 bones support and protect',
     color: '#e0e0ff', 
     position: { x: 50, y: 75 },
     lineAnchor: { x: 50, y: 72 }
@@ -100,6 +83,7 @@ export const HumanBodySVG: React.FC<HumanBodySVGProps> = ({
   selectedPart 
 }) => {
   const navigate = useNavigate();
+  const { t, language } = useLanguage();
   const [hoveredOrgan, setHoveredOrgan] = useState<string | null>(null);
   const [activeOrgan, setActiveOrgan] = useState<string | null>(null);
 
@@ -114,7 +98,13 @@ export const HumanBodySVG: React.FC<HumanBodySVGProps> = ({
     }, 300);
   };
 
-  const currentOrgan = organs.find(o => o.id === (hoveredOrgan || activeOrgan));
+  const getOrganName = (id: string) => t.bodyParts[id as keyof typeof t.bodyParts] || id;
+  const getOrganDescription = (id: string) => t.organDescriptions[id as keyof typeof t.organDescriptions] || '';
+
+  const currentOrganId = hoveredOrgan || activeOrgan;
+  const currentOrgan = organs.find(o => o.id === currentOrganId);
+
+  const systemNames = [t.systems.nervous, t.systems.circulatory, t.systems.respiratory, t.systems.digestive];
 
   return (
     <div className="body-explorer">
@@ -128,9 +118,9 @@ export const HumanBodySVG: React.FC<HumanBodySVGProps> = ({
           </div>
         </div>
         <div className="header-content">
-          <span className="header-badge">Interactive</span>
-          <h2 className="explorer-title">Human Anatomy Explorer</h2>
-          <p className="explorer-subtitle">Click on any organ to discover how your body works</p>
+          <span className="header-badge">{t.home.interactive}</span>
+          <h2 className="explorer-title">{t.home.explorerTitle}</h2>
+          <p className="explorer-subtitle">{t.home.explorerSubtitle}</p>
         </div>
         <div className="header-decoration right">
           <div className="dna-strand">
@@ -147,10 +137,10 @@ export const HumanBodySVG: React.FC<HumanBodySVGProps> = ({
         <div className="info-panel left-panel">
           <div className="panel-header">
             <span className="panel-icon">📊</span>
-            <span>Body Systems</span>
+            <span>{t.home.bodySystems}</span>
           </div>
           <div className="system-list">
-            {['Nervous', 'Circulatory', 'Respiratory', 'Digestive'].map((system, i) => (
+            {systemNames.map((system, i) => (
               <div key={system} className="system-item" style={{ animationDelay: `${i * 0.1}s` }}>
                 <div className="system-dot" />
                 <span>{system}</span>
@@ -312,7 +302,7 @@ export const HumanBodySVG: React.FC<HumanBodySVGProps> = ({
                   onClick={() => handlePartClick(organ.id)}
                   onMouseEnter={() => setHoveredOrgan(organ.id)}
                   onMouseLeave={() => setHoveredOrgan(null)}
-                  aria-label={`Explore the ${organ.name}`}
+                  aria-label={`${language === 'al' ? 'Eksploro' : 'Explore the'} ${getOrganName(organ.id)}`}
                 >
                   <span className="marker-ring ring-1" />
                   <span className="marker-ring ring-2" />
@@ -328,8 +318,8 @@ export const HumanBodySVG: React.FC<HumanBodySVGProps> = ({
           <div className="organ-info-display visible">
             <span className="info-icon">{currentOrgan ? currentOrgan.icon : '🔍'}</span>
             <div className="info-content">
-              <h4>{currentOrgan ? currentOrgan.name : 'Select an Organ'}</h4>
-              <p>{currentOrgan ? currentOrgan.description : 'Hover or click on any organ to learn more'}</p>
+              <h4>{currentOrganId ? getOrganName(currentOrganId) : (language === 'al' ? 'Zgjidh një Organ' : 'Select an Organ')}</h4>
+              <p>{currentOrganId ? getOrganDescription(currentOrganId) : (language === 'al' ? 'Vendos kursorin ose kliko mbi çdo organ për të mësuar më shumë' : 'Hover or click on any organ to learn more')}</p>
             </div>
             <span className="info-arrow">→</span>
           </div>
@@ -339,24 +329,24 @@ export const HumanBodySVG: React.FC<HumanBodySVGProps> = ({
         <div className="info-panel right-panel">
           <div className="panel-header">
             <span className="panel-icon">🔬</span>
-            <span>Quick Facts</span>
+            <span>{t.home.quickStats}</span>
           </div>
           <div className="fact-list">
             <div className="fact-item">
               <span className="fact-number">206</span>
-              <span className="fact-label">Bones</span>
+              <span className="fact-label">{language === 'al' ? 'Kocka' : 'Bones'}</span>
             </div>
             <div className="fact-item">
               <span className="fact-number">78</span>
-              <span className="fact-label">Organs</span>
+              <span className="fact-label">{t.home.organs}</span>
             </div>
             <div className="fact-item">
               <span className="fact-number">600+</span>
-              <span className="fact-label">Muscles</span>
+              <span className="fact-label">{language === 'al' ? 'Muskuj' : 'Muscles'}</span>
             </div>
             <div className="fact-item">
               <span className="fact-number">60K</span>
-              <span className="fact-label">Miles of vessels</span>
+              <span className="fact-label">{language === 'al' ? 'Milja enësh' : 'Miles of vessels'}</span>
             </div>
           </div>
         </div>
@@ -365,7 +355,7 @@ export const HumanBodySVG: React.FC<HumanBodySVGProps> = ({
       {/* Organ Selection Cards */}
       <div className="organ-cards-section">
         <div className="cards-header">
-          <h3>Select an Organ to Explore</h3>
+          <h3>{language === 'al' ? 'Zgjidh një Organ për të Eksploruar' : 'Select an Organ to Explore'}</h3>
           <div className="cards-decoration" />
         </div>
         <div className="organ-cards-grid">
@@ -383,7 +373,7 @@ export const HumanBodySVG: React.FC<HumanBodySVGProps> = ({
             >
               <div className="card-glow" />
               <span className="card-icon">{organ.icon}</span>
-              <span className="card-name">{organ.name}</span>
+              <span className="card-name">{getOrganName(organ.id)}</span>
               <span className="card-arrow">→</span>
             </button>
           ))}
@@ -394,7 +384,7 @@ export const HumanBodySVG: React.FC<HumanBodySVGProps> = ({
       <div className="explorer-footer">
         <div className="pulse-indicator">
           <span className="pulse-dot" />
-          <span className="pulse-text">Interactive Mode Active</span>
+          <span className="pulse-text">{language === 'al' ? 'Modaliteti Interaktiv Aktiv' : 'Interactive Mode Active'}</span>
         </div>
       </div>
     </div>

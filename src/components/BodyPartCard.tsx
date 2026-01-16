@@ -1,5 +1,6 @@
 import React from 'react';
 import type { BodyPart, WikipediaSummary } from '../types/biology';
+import { useLanguage } from '../i18n';
 import './BodyPartCard.css';
 
 interface BodyPartCardProps {
@@ -16,6 +17,8 @@ export const BodyPartCard: React.FC<BodyPartCardProps> = ({
   wikipedia,
   isLoading,
 }) => {
+  const { t } = useLanguage();
+
   return (
     <div className="body-part-card">
       <div className="card-header">
@@ -26,7 +29,7 @@ export const BodyPartCard: React.FC<BodyPartCardProps> = ({
       {isLoading && (
         <div className="loading-indicator">
           <div className="spinner"></div>
-          <p>Loading additional information...</p>
+          <p>{t.details.loadingInfo}</p>
         </div>
       )}
 
@@ -54,20 +57,20 @@ export const BodyPartCard: React.FC<BodyPartCardProps> = ({
 
         {/* Description */}
         <section className="card-section">
-          <h2>📖 Description</h2>
-          <p>{wikipedia?.extract || bodyPart.description}</p>
+          <h2>📖 {t.details.description}</h2>
+          <p>{bodyPart.description}</p>
         </section>
 
         {/* Function */}
         <section className="card-section">
-          <h2>⚙️ Function</h2>
+          <h2>⚙️ {t.details.function}</h2>
           <p>{bodyPart.function}</p>
         </section>
 
         {/* Fun Facts */}
         {bodyPart.funFacts && bodyPart.funFacts.length > 0 && (
           <section className="card-section fun-facts">
-            <h2>🎉 Fun Facts</h2>
+            <h2>🎉 {t.details.funFacts}</h2>
             <ul>
               {bodyPart.funFacts.map((fact, index) => (
                 <li key={index}>{fact}</li>
@@ -85,7 +88,7 @@ export const BodyPartCard: React.FC<BodyPartCardProps> = ({
               rel="noopener noreferrer"
               className="wikipedia-link"
             >
-              📚 Read more on Wikipedia →
+              📚 {t.details.readMoreWikipedia}
             </a>
           </section>
         )}
